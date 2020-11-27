@@ -9,8 +9,9 @@ const Nweet = ({ nweetObj, isOwner }) => {
         const ok = window.confirm("Are you sure?");
         if(ok){
             await db.doc(`nweet/${nweetObj.id}`).delete();
-            await storage.refFromURL(nweetObj.photoUrl).delete();
-            
+            if(nweetObj.photoUrl !==""){
+                await storage.refFromURL(nweetObj.photoUrl).delete();
+            }
         }
     }
     const toggleEditing = () => setEditing((prev) => !prev);
